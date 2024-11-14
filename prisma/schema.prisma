@@ -12,3 +12,73 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+
+model User{
+  id      Int      @id @default(autoincrement())
+  username    String?
+  email   String   @unique
+  password String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  workoutPlan WorkoutPlan[]
+  workoutPlanExercise WorkoutPlanExercise[]
+  scheduleWorkout ScheduleWorkout[]
+
+}
+
+model WorkoutPlan{
+  id      Int      @id @default(autoincrement())
+  name String
+  user User @relation(fields:[user_id], references: [id])
+  user_id Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  workoutPlanExercise WorkoutPlanExercise[]
+}
+
+model Exercise{
+  id      Int      @id @default(autoincrement())
+  name String
+  description String
+  category ExerciseCategory
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  workoutPlanExercise WorkoutPlanExercise[]
+  scheduleWorkout ScheduleWorkout[]
+}
+
+enum ExerciseCategory{
+  Cardio
+  Strength
+}
+
+model WorkoutPlanExercise{
+  id      Int      @id @default(autoincrement())
+  user User @relation(fields:[user_id], references: [id])
+  user_id Int
+  workoutPlan WorkoutPlan @relation(fields:[workout_id], references: [id])
+  workout_id Int
+  exercise Exercise @relation(fields:[exercise_id],references: [id])
+  exercise_id Int
+  sets Int 
+  reps Int
+  weight Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  scheduleWorkout ScheduleWorkout[]
+}
+
+model ScheduleWorkout{
+  id      Int      @id @default(autoincrement())
+  workoutPlanExercise WorkoutPlanExercise @relation(fields:[workout_plan_exercise_id],references: [id])
+  workout_plan_exercise_id Int
+  user User @relation(fields:[user_id], references: [id])
+  user_id Int
+  exercise Exercise @relation(fields:[exercise_id],references: [id])
+  exercise_id Int
+  schedule_date DateTime 
+  completed Boolean
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
