@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 const cors = require('cors');
+const routers = require("./routes/api.routes");
 
 //middleware - any time you're gonna make middle ware we have to use .use();
 app.use(cors());
