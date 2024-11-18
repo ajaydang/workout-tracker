@@ -42,6 +42,7 @@ model Exercise{
   name String
   description String
   category ExerciseCategory
+  muscle_group String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   workoutPlanExercise WorkoutPlanExercise[]
