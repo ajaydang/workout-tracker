@@ -9,3 +9,12 @@ exports.createSchedule = async function(req,res,next){
 next(error)
   }
 }
+
+exports.getScheduleExercise = async function(req,res,next){
+  try {
+    const scheduleData = await scheduleWorkoutServices.getScheduleExercise({});
+    res.json({ status: 200, data: scheduleData, message: "Retrieved" });
+  } catch (error) {
+    throw Error("Error while retrieving workout plan.")
+  }
+}
