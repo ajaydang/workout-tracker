@@ -1,11 +1,11 @@
 const workoutServices = require('../services/workoutplan.services');
 
-exports.createWorkoutPlan = async function(query){
+exports.createWorkoutPlan = async function(req,res,next){
   try {
-    const workoutPlanData = await workoutServices.create({data:query});
-    return workoutPlanData;
+    const workoutPlanData = await workoutServices.createWorkoutPlan({data:req.body});
+    res.json({ status: 200, data: workoutPlanData, message: "Created!!!!!" });
   } catch (error) {
-    throw Error("Error while creating workout plan.")
+next(error)
   }
 }
 
@@ -34,12 +34,23 @@ exports.getWorkoutPlanByUserId = async function (req,res,next){
   
   try {
     const workoutPlanByUserId = await workoutServices.getWorkoutPlanByUserId(Number(uid));
-    console.log(workoutPlanByUserId,'dahlkfjahskdj');
-    if(workoutPlanByUserId){
-      res.json({ status: 200, data: workoutPlanByUserId, message: "Retrieved Success" });
-    }else{
-      res.json({ status: 200, message: "Data not found." });
-    }
+
+    res.json({ status: 200, data: workoutPlanByUserId, message: "Retrieved Success" });
+    
+  } catch (error) {
+    next(error);
+  }
+}
+
+exports.updateWorkoutPlanById = async function (req,res,next){
+  const {id}= req.params;
+  
+  try {
+    console.log(req.body,'bodrydahlkjdfhkj')
+    const updateWorkoutPlanData = await workoutServices.updateWorkoutPlanById(req.body, id);
+    
+    res.json({ status: 200, data: updateWorkoutPlanData, message: "Updated Success" });
+    
   } catch (error) {
     next(error);
   }
