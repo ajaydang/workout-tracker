@@ -18,3 +18,31 @@ exports.getScheduleExercise = async function(){
     throw Error("Error while retrieving schdule workout.")
   }
 }
+
+exports.updateScheduleById = async function (query,id){
+  try {
+    const updateScheduleData = await prisma.ScheduleWorkout.update({
+      where: {
+        id: Number(id),
+      },
+      data: query,
+    });
+    return updateScheduleData;
+  } catch (error) {
+    throw Error("Error while updating Workout Plan.")
+  }
+}
+
+
+exports.deleteScheduleWorkout = async function (id){
+  try {
+    const deleteScheduleWorkout = await prisma.ScheduleWorkout.delete({
+      where: {
+        id: Number(id),
+      }
+    });
+    return deleteScheduleWorkout;
+  } catch (error) {
+    throw Error("Error while deleting Workout Plan.")
+  }
+}

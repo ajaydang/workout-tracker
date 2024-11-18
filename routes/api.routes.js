@@ -34,5 +34,7 @@ router.delete('/workout-plan-exercise/delete/:id',WorkoutPlanExerciseController.
 const ScheduleWorkoutController= require("../controllers/scheduleWorkout.controllers");
 router.post('/schedule-workout/',ScheduleWorkoutController.createSchedule);
 router.get('/schedule-workout/',ScheduleWorkoutController.getScheduleExercise);
+router.put('/schedule-workout/update/:id',ScheduleWorkoutController.updateScheduleById);
+router.delete('/schedule-workout/delete/:id',ScheduleWorkoutController.deleteScheduleWorkout);
 
 module.exports= router;
