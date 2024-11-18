@@ -35,6 +35,19 @@ exports.updateExerciseById = async function (query,id){
     });
     return updateExerciseById;
   } catch (error) {
-    throw Error("Error while updating Workout Plan.")
+    throw Error("Error while updating Exercise.")
+  }
+}
+
+exports.deleteExerciseById = async function (id){
+  try {
+    const deletedExerciseData = await prisma.Exercise.delete({
+      where: {
+        id: Number(id),
+      }
+    });
+    return deletedExerciseData;
+  } catch (error) {
+    throw Error("Error while deleting Exercise.")
   }
 }

@@ -31,3 +31,16 @@ exports.updateExerciseById = async function (req,res,next){
     next(error);
   }
 }
+
+exports.deleteExerciseById = async function (req,res,next){
+  const {id}= req.params;
+  
+  try {
+    const deleteExerciseData = await exerciseServices.deleteExerciseById(id);
+    
+    res.json({ status: 200, data: deleteExerciseData, message: "Deleted Success" });
+    
+  } catch (error) {
+    next(error);
+  }
+}
