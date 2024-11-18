@@ -17,3 +17,17 @@ exports.getExerciseData = async function(req,res,next){
     throw Error("Error while retrieving workout plan.")
   }
 }
+
+
+exports.updateExerciseById = async function (req,res,next){
+  const {id}= req.params;
+  
+  try {
+    const updateExerciseData = await exerciseServices.updateExerciseById(req.body, id);
+    
+    res.json({ status: 200, data: updateExerciseData, message: "Updated Success" });
+    
+  } catch (error) {
+    next(error);
+  }
+}

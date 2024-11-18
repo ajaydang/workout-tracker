@@ -20,3 +20,21 @@ exports.getExercise = async function(){
     throw Error("Error while retrieving exercise.")
   }
 }
+
+exports.updateExerciseById = async function (query,id){
+  try {
+    const updateExerciseById = await prisma.Exercise.update({
+      where: {
+        id: Number(id),
+      },
+      data: query,
+      include: {
+        workoutPlanExercise: true,
+        scheduleWorkout:true
+      },
+    });
+    return updateExerciseById;
+  } catch (error) {
+    throw Error("Error while updating Workout Plan.")
+  }
+}
