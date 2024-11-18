@@ -31,7 +31,6 @@ exports.getWorkoutPlanById = async function(id){
       }
     });
 
-    console.log(workoutPlanIdData,'dataasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfas');
     return workoutPlanIdData;
   } catch (error) {
     console.log(error,'this is error')
