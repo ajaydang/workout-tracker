@@ -17,5 +17,6 @@ router.delete('/workout-plan/delete/:id',WorkoutPlanController.deleteWorkoutPlan
 //Exercise
 const ExerciseController = require("../controllers/exercise.controllers");
 router.post('/exercise/',ExerciseController.createExercise);
+router.get('/exercise/',ExerciseController.getExerciseData);
 
 module.exports= router;

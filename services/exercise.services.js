@@ -10,3 +10,13 @@ exports.createExercise = async function(query){
     throw Error("Error while creating exercise.",error)
   }
 }
+
+
+exports.getExercise = async function(){
+  try {
+    const exerciseData = await prisma.Exercise.findMany();
+    return exerciseData;
+  } catch (error) {
+    throw Error("Error while retrieving exercise.")
+  }
+}
