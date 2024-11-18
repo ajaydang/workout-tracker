@@ -30,4 +30,8 @@ router.get('/workout-plan-exercise/user/:uid',WorkoutPlanExerciseController.getW
 router.put('/workout-plan-exercise/update/:id',WorkoutPlanExerciseController.updateWorkoutPlanExerciseById);
 router.delete('/workout-plan-exercise/delete/:id',WorkoutPlanExerciseController.deleteWorkoutPlanExerciseById);
 
+//Schedule Workout Plan
+const ScheduleWorkoutController= require("../controllers/scheduleWorkout.controllers");
+router.post('/schedule-workout/',ScheduleWorkoutController.createSchedule);
+
 module.exports= router;
