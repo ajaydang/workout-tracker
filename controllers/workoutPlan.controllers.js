@@ -46,10 +46,22 @@ exports.updateWorkoutPlanById = async function (req,res,next){
   const {id}= req.params;
   
   try {
-    console.log(req.body,'bodrydahlkjdfhkj')
     const updateWorkoutPlanData = await workoutServices.updateWorkoutPlanById(req.body, id);
     
     res.json({ status: 200, data: updateWorkoutPlanData, message: "Updated Success" });
+    
+  } catch (error) {
+    next(error);
+  }
+}
+
+exports.deleteWorkoutPlanById = async function (req,res,next){
+  const {id}= req.params;
+  
+  try {
+    const deleteWorkoutPlanData = await workoutServices.deleteWorkoutPlanById(id);
+    
+    res.json({ status: 200, data: deleteWorkoutPlanData, message: "Deleted Success" });
     
   } catch (error) {
     next(error);
