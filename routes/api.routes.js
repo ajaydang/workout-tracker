@@ -10,5 +10,6 @@ const WorkoutPlanController = require("../controllers/workoutPlan.controllers");
 router.post('/workout-plan/',WorkoutPlanController.createWorkoutPlan);
 router.get('/workout-plan/',WorkoutPlanController.getWorkoutPlan);
 router.get('/workout-plan/:id',WorkoutPlanController.getWorkoutPlanById);
+router.get('/workout-plan/user/:uid',WorkoutPlanController.getWorkoutPlanByUserId);
 
 module.exports= router;
