@@ -36,5 +36,7 @@ router.post('/schedule-workout/',ScheduleWorkoutController.createSchedule);
 router.get('/schedule-workout/',ScheduleWorkoutController.getScheduleExercise);
 router.put('/schedule-workout/update/:id',ScheduleWorkoutController.updateScheduleById);
 router.delete('/schedule-workout/delete/:id',ScheduleWorkoutController.deleteScheduleWorkout);
+router.get('/schedule-workout/report/:uid',ScheduleWorkoutController.getWorkoutReport);
+
 
 module.exports= router;

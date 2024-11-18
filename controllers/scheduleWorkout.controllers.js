@@ -43,3 +43,13 @@ exports.deleteScheduleWorkout = async function (req,res,next){
     next(error);
   }
 }
+
+exports.getWorkoutReport = async function(req, res, next) {
+  try {
+    const {userId} = req.params;
+    const workoutReport = await scheduleWorkoutServices.getWorkoutReport(userId);
+    res.json({ status: 200, data: workoutReport, message: "Retrieved workout report." });
+  } catch (error) {
+    next(error);
+  }
+};

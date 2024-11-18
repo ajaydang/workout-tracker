@@ -46,3 +46,42 @@ exports.deleteScheduleWorkout = async function (id){
     throw Error("Error while deleting Workout Plan.")
   }
 }
+
+exports.getWorkoutReport = async function(userId) {
+  try {
+    const pastWorkouts = await prisma.ScheduleWorkout.findMany({
+      where: {
+        user_id: userId,
+        completed: true,
+      },
+      include: {
+        exercise: true,
+        workoutPlanExercise: true, 
+      },
+      orderBy: {
+        schedule_date: 'desc',
+      },
+    });
+    
+    const totalWorkouts = await prisma.ScheduleWorkout.count({
+      where: { user_id: userId },
+    });
+
+    const completedWorkouts = await prisma.ScheduleWorkout.count({
+      where: { user_id: userId, completed: true },
+    });
+
+    const progressPercentage = totalWorkouts > 0 ? (completedWorkouts / totalWorkouts) * 100 : 0;
+
+    return {
+      pastWorkouts,
+      progress: {
+        totalWorkouts,
+        completedWorkouts,
+        progressPercentage,
+      },
+    };
+  } catch (error) {
+    throw Error("Error while retrieving workout report.");
+  }
+};
