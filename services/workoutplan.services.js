@@ -9,3 +9,13 @@ exports.createWorkoutPlan = async function(query){
     throw Error("Error while creating workout plan.")
   }
 }
+
+
+exports.getWorkoutPlan = async function(){
+  try {
+    const workoutPlanData = await prisma.WorkoutPlan.findMany();
+    return workoutPlanData;
+  } catch (error) {
+    throw Error("Error while retrieving workout plan.")
+  }
+}

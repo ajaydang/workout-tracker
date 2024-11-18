@@ -8,5 +8,6 @@ router.get("/user",UserController.getUser);
 //Workout Plan
 const WorkoutPlanController = require("../controllers/workoutPlan.controllers");
 router.post('/workout-plan/',WorkoutPlanController.createWorkoutPlan);
+router.get('/workout-plan/',WorkoutPlanController.getWorkoutPlan);
 
 module.exports= router;
