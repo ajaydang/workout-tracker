@@ -17,3 +17,14 @@ exports.getWorkoutPlan = async function(req,res,next){
     throw Error("Error while retrieving workout plan.")
   }
 }
+
+exports.getWorkoutPlanById = async function (req,res,next){
+  const {id}= req.params;
+  
+  try {
+    const workoutPlanByIdData = await workoutServices.getWorkoutPlanById(Number(id));
+    res.json({ status: 200, data: workoutPlanByIdData, message: "Retrieved Success" });
+  } catch (error) {
+    next(error);
+  }
+}

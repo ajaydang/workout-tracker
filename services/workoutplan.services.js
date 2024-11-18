@@ -19,3 +19,22 @@ exports.getWorkoutPlan = async function(){
     throw Error("Error while retrieving workout plan.")
   }
 }
+
+exports.getWorkoutPlanById = async function(id){
+  try {
+    const workoutPlanIdData = await prisma.WorkoutPlan.findMany({
+      where:{
+        id:Number(id),
+      },
+      orderBy:{
+        id:"desc"
+      }
+    });
+
+    console.log(workoutPlanIdData,'dataasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfas');
+    return workoutPlanIdData;
+  } catch (error) {
+    console.log(error,'this is error')
+    throw Error("Error while updating Workout Plan.")
+  }
+}
