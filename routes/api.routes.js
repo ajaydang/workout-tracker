@@ -21,4 +21,13 @@ router.get('/exercise/',ExerciseController.getExerciseData);
 router.put('/exercise/update/:id',ExerciseController.updateExerciseById);
 router.delete('/exercise/delete/:id',ExerciseController.deleteExerciseById);
 
+//Workout Plan Exercise
+const WorkoutPlanExerciseController = require("../controllers/workoutPlanExercise.controllers");
+router.post('/workout-plan-exercise/',WorkoutPlanExerciseController.createWorkoutPlanExercise);
+router.get('/workout-plan-exercise/',WorkoutPlanExerciseController.getWorkoutPlanExercise);
+router.get('/workout-plan-exercise/:id',WorkoutPlanExerciseController.getWorkoutPlanExerciseById);
+router.get('/workout-plan-exercise/user/:uid',WorkoutPlanExerciseController.getWorkoutPlanExerciseByUserId);
+router.put('/workout-plan-exercise/update/:id',WorkoutPlanExerciseController.updateWorkoutPlanExerciseById);
+router.delete('/workout-plan-exercise/delete/:id',WorkoutPlanExerciseController.deleteWorkoutPlanExerciseById);
+
 module.exports= router;
