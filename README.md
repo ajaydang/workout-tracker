@@ -17,4 +17,5 @@ Workout Tracker is designed to help users easily track and manage their workouts
 6. And here you go.
 
 **API Documentation**
+
 https://documenter.getpostman.com/view/19107374/2sAYBRFZeg
