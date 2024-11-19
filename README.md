@@ -1,6 +1,6 @@
-# Workot Tracker
+# Workout Tracker
 
-Workout Tracker is designed to help users easily track and manage their workouts .It’s crucial for fitness enthusiasts to track their exercise routines and monitor their progress. 
+Workout Tracker is designed to help users easily track and manage their workouts. It’s crucial for fitness enthusiasts to track their exercise routines and monitor their progress. With features like user authentication using JSON Web Tokens (JWT), the API ensures secure access to personal workout data. 
 
 **Techstack**
 - Nodejs
@@ -17,5 +17,4 @@ Workout Tracker is designed to help users easily track and manage their workouts
 6. And here you go.
 
 **API Documentation**
-
-   
+https://documenter.getpostman.com/view/19107374/2sAYBRFZeg
