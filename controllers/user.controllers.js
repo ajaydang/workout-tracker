@@ -3,7 +3,7 @@ const userServices = require('../services/user.services');
 exports.createUser = async function (req, res, next) {
     try {
         const user = await userServices.saveUser(req.body, res);
-        res.json({
+        return res.json({
             status: 200,
             data: user,
             message: 'User is successfully created.',
@@ -16,7 +16,7 @@ exports.createUser = async function (req, res, next) {
 exports.getUser = async function (req, res, next) {
     try {
         const user = await userServices.loginUser(req.body, res);
-        res.json({
+        return res.json({
             status: 200,
             data: user,
             message: 'User is successfully created.',

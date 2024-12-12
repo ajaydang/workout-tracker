@@ -31,8 +31,8 @@ exports.saveUser = async function (query) {
     }
 };
 
-exports.loginUser = async function (query, response) {
-    const { email, password } = query;
+exports.loginUser = async function (request, response) {
+    const { email, password } = request;
 
     try {
         const userExistense = await prisma.User.findUnique({
@@ -61,12 +61,7 @@ exports.loginUser = async function (query, response) {
             }
         );
 
-        return response.status(200).json({
-            success: true,
-            statusCode: 200,
-            data: token,
-            message: 'Login Successfully.',
-        });
+        return { token };
     } catch (error) {
         return response.status(500).json({
             success: false,

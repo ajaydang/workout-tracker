@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -13,73 +7,71 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-
-model User{
-  id      Int      @id @default(autoincrement())
-  username    String?
-  email   String   @unique
-  password String?
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  workoutPlan WorkoutPlan[]
+model User {
+  id                  Int                   @id @default(autoincrement())
+  username            String?
+  email               String                @unique
+  password            String?
+  createdAt           DateTime              @default(now())
+  updatedAt           DateTime              @updatedAt
+  scheduleWorkout     ScheduleWorkout[]
+  workoutPlan         WorkoutPlan[]
   workoutPlanExercise WorkoutPlanExercise[]
+}
+
+model WorkoutPlan {
+  id                  Int                   @id @default(autoincrement())
+  name                String
+  user_id             Int
+  createdAt           DateTime              @default(now())
+  updatedAt           DateTime              @updatedAt
+  user                User                  @relation(fields: [user_id], references: [id])
+  workoutPlanExercise WorkoutPlanExercise[]
+}
+
+model Exercise {
+  id                  Int                   @id @default(autoincrement())
+  name                String
+  description         String
+  category            ExerciseCategory
+  createdAt           DateTime              @default(now())
+  updatedAt           DateTime              @updatedAt
+  muscle_group        String
+  scheduleWorkout     ScheduleWorkout[]
+  workoutPlanExercise WorkoutPlanExercise[]
+}
+
+model WorkoutPlanExercise {
+  id              Int               @id @default(autoincrement())
+  user_id         Int
+  workout_id      Int
+  exercise_id     Int
+  sets            Int
+  reps            Int
+  weight          Int
+  createdAt       DateTime          @default(now())
+  updatedAt       DateTime          @updatedAt
   scheduleWorkout ScheduleWorkout[]
-
+  exercise        Exercise          @relation(fields: [exercise_id], references: [id])
+  user            User              @relation(fields: [user_id], references: [id])
+  workoutPlan     WorkoutPlan       @relation(fields: [workout_id], references: [id])
 }
 
-model WorkoutPlan{
-  id      Int      @id @default(autoincrement())
-  name String
-  user User @relation(fields:[user_id], references: [id])
-  user_id Int
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  workoutPlanExercise WorkoutPlanExercise[]
+model ScheduleWorkout {
+  id                       Int                 @id @default(autoincrement())
+  workout_plan_exercise_id Int
+  user_id                  Int
+  exercise_id              Int
+  schedule_date            DateTime
+  completed                Boolean
+  createdAt                DateTime            @default(now())
+  updatedAt                DateTime            @updatedAt
+  exercise                 Exercise            @relation(fields: [exercise_id], references: [id])
+  user                     User                @relation(fields: [user_id], references: [id])
+  workoutPlanExercise      WorkoutPlanExercise @relation(fields: [workout_plan_exercise_id], references: [id])
 }
 
-model Exercise{
-  id      Int      @id @default(autoincrement())
-  name String
-  description String
-  category ExerciseCategory
-  muscle_group String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  workoutPlanExercise WorkoutPlanExercise[]
-  scheduleWorkout ScheduleWorkout[]
-}
-
-enum ExerciseCategory{
+enum ExerciseCategory {
   Cardio
   Strength
-}
-
-model WorkoutPlanExercise{
-  id      Int      @id @default(autoincrement())
-  user User @relation(fields:[user_id], references: [id])
-  user_id Int
-  workoutPlan WorkoutPlan @relation(fields:[workout_id], references: [id])
-  workout_id Int
-  exercise Exercise @relation(fields:[exercise_id],references: [id])
-  exercise_id Int
-  sets Int 
-  reps Int
-  weight Int
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  scheduleWorkout ScheduleWorkout[]
-}
-
-model ScheduleWorkout{
-  id      Int      @id @default(autoincrement())
-  workoutPlanExercise WorkoutPlanExercise @relation(fields:[workout_plan_exercise_id],references: [id])
-  workout_plan_exercise_id Int
-  user User @relation(fields:[user_id], references: [id])
-  user_id Int
-  exercise Exercise @relation(fields:[exercise_id],references: [id])
-  exercise_id Int
-  schedule_date DateTime 
-  completed Boolean
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
 }
