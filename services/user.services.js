@@ -40,7 +40,12 @@ exports.loginUser = async function (request, response) {
         });
 
         if (!userExistense) {
-            throw Error(`This user doesn't exist.`);
+            return response.status(500).json({
+                success: false,
+                statusCode: 500,
+                data: error,
+                message: `User doesn't exist`,
+            });
         }
 
         const matchPassword = await bcrypt.compare(password, userExistense.password);
@@ -55,9 +60,9 @@ exports.loginUser = async function (request, response) {
                 email: userExistense.email,
                 username: userExistense.username,
             },
-            process.env.JWT_LOGIN_ACCESS_TOKEN,
+            process.env.SECRET_KEY,
             {
-                expiresIn: '1h',
+                expiresIn: '24h',
             }
         );
 

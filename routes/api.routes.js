@@ -55,6 +55,8 @@ router.delete(
     WorkoutPlanExerciseController.deleteWorkoutPlanExerciseById
 );
 
+router.post('/workout-plan-exercise/add', WorkoutPlanExerciseController.saveWorkoutPlanExerciseData);
+
 //Schedule Workout Plan
 const ScheduleWorkoutController = require('../controllers/scheduleWorkout.controllers');
 router.post('/schedule-workout/', authentication.authenticateJWT, ScheduleWorkoutController.createSchedule);

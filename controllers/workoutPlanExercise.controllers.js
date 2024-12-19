@@ -1,8 +1,6 @@
 const workoutPlanExerciseServices = require('../services/workoutPlanExercise.services');
 
 exports.createWorkoutPlanExercise = async function (req, res, next) {
-    console.log(req.body, 'asdfkajsdlfagsdfhgaj fasdgf jsahdkfjha ksdfajsdg fajgsdfjags kj');
-
     try {
         const workoutPlanExerciseData = await workoutPlanExerciseServices.createWorkoutPlanExercise({
             data: req.body,
@@ -92,6 +90,19 @@ exports.deleteWorkoutPlanExerciseById = async function (req, res, next) {
             status: 200,
             data: deleteWorkoutPlanExerciseData,
             message: 'Deleted Success',
+        });
+    } catch (error) {
+        next(error);
+    }
+};
+
+exports.saveWorkoutPlanExerciseData = async function (req, res, next) {
+    try {
+        const saveWholeData = await workoutPlanExerciseServices.saveWorkoutPlanExercise(req.body);
+        res.json({
+            status: 200,
+            data: saveWholeData,
+            message: 'You have planned exercises for this workout plan is successfully created.',
         });
     } catch (error) {
         next(error);

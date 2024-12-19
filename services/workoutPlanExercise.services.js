@@ -85,3 +85,27 @@ exports.deleteWorkoutPlanExerciseById = async function (id) {
         throw Error('Error while deleting Workout Plan.');
     }
 };
+
+exports.saveWorkoutPlanExercise = async (query) => {
+    const [workoutPlan, workoutPlanExercise] = query;
+    console.log(workoutPlanExercise, 'mathi ko');
+
+    await prisma.$transaction(async (tx) => {
+        const workoutPlanData = await tx.WorkoutPlan.create({ data: workoutPlan });
+
+        const workoutIdExercises = workoutPlanExercise.map((exercise) => ({
+            ...exercise,
+            workout_id: workoutPlanData.id,
+            user_id: 1,
+            sets: parseInt(exercise.sets),
+            reps: parseInt(exercise.reps),
+            weight: parseInt(exercise.weight),
+        }));
+
+        const workoutPlanExerciseData = await tx.WorkoutPlanExercise.createMany({
+            data: workoutIdExercises,
+        });
+
+        return { workoutPlanData, workoutPlanExerciseData };
+    });
+};

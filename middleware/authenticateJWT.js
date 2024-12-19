@@ -8,13 +8,13 @@ exports.authenticateJWT = (req, res, next) => {
             return res.status(401).json({ message: 'Unauthorized: Token is missing or invalid' });
         }
 
-        const token = authHeader.split(' ')[1];
+        const token = authHeader.split('Bearer ')[1];
 
         if (!token) {
             return res.status(401).json({ message: 'Unauthorized: Token is missing' });
         }
 
-        jwt.verify(token, process.env.JWT_LOGIN_ACCESS_TOKEN, (err, user) => {
+        jwt.verify(token, process.env.SECRET_KEY, (err, user) => {
             if (err) {
                 return res.status(403).json({ message: 'Forbidden: Invalid token' });
             }
